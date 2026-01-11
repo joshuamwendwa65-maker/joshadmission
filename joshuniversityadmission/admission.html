@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Josh University Online Admission</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #003366;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+        }
+
+        button {
+            background: #003366;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background: #0055aa;
+        }
+
+        .letter h1 {
+            text-align: center;
+            color: #003366;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            width: 90px;
+        }
+
+        .fill {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* Print styling */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .letter, .letter * {
+                visibility: visible;
+            }
+            .letter {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2>Josh University – Online Admission Portal</h2>
+
+<div class="container">
+
+    <!-- STUDENT INPUT FORM -->
+    <div class="box">
+        <h3>Enter Student Details</h3>
+
+        <label>Student Full Name</label>
+        <input type="text" id="name" placeholder="e.g. Joshua Mwendwa">
+
+        <label>KNEC Admission Number</label>
+        <input type="text" id="adm" placeholder="e.g. 23456789012">
+
+        <!-- Parent Information Fields -->
+        <label>Parent / Guardian Name</label>
+        <input type="text" id="parentName" placeholder="Parent / Guardian Name">
+
+        <label>Parent Contact Number</label>
+        <input type="text" id="parentPhone" placeholder="Parent Phone">
+
+        <label>Parent Email</label>
+        <input type="email" id="parentEmail" placeholder="Parent Email">
+
+        <label>Upload Medical Report</label>
+        <input type="file" id="medicalFile" accept=".pdf,.jpg,.png">
+
+        <button onclick="generateLetter()">Generate Admission Letter</button>
+        <button onclick="downloadLetter()">Download Admission Letter</button>
+    </div>
+
+    <!-- ADMISSION LETTER -->
+    <div class="box letter">
+
+        <!-- UNIVERSITY LOGO -->
+        <img src="C:\Users\PC\Downloads\laptops_files\josh university.jpg"
+             alt="Josh University Logo"
+             class="logo">
+
+        <h1>JOSH UNIVERSITY</h1>
+        <p style="text-align:center;">P.O. Box 1234 – Nairobi, Kenya</p>
+        <p style="text-align:center;">Tel: +254 700 123 456 | Email: admissions@joshuniversity.ac.ke</p>
+
+        <p><strong>Date:</strong> 10 January 2026</p>
+
+        <p>
+            Dear <span class="fill" id="sName">____________________</span>,
+        </p>
+
+        <p>
+            We are pleased to inform you that you have been
+            <strong>successfully admitted</strong> to Josh University
+            for the 2026 academic year.
+        </p>
+
+        <p>
+            <strong>KNEC Admission Number:</strong>
+            <span class="fill" id="sAdm">____________________</span>
+        </p>
+
+        <p>
+            <strong>Medical Report Status:</strong>
+            <span class="fill" id="sMedical">Not Uploaded</span>
+        </p>
+
+        <!-- Program Info -->
+        <p>
+            <strong>Program Admitted:</strong> Bachelor of Information Technology
+        </p>
+
+        <p>
+            <strong>Program Duration:</strong> 4 Years (8 Semesters)
+        </p>
+
+        <p>
+            <strong>Reporting Date:</strong> 12 March 2026
+        </p>
+
+        <!-- Parent Info -->
+        <p>
+            <strong>Parent / Guardian Name:</strong> <span class="fill" id="sParentName">____________________</span><br>
+            <strong>Parent Contact:</strong> <span class="fill" id="sParentPhone">____________________</span><br>
+            <strong>Parent Email:</strong> <span class="fill" id="sParentEmail">____________________</span>
+        </p>
+
+        <p>
+            Please ensure you complete the registration process by submitting all required
+            documents including your original academic transcripts, KNEC admission letter,
+            and the verified medical report.
+        </p>
+
+        <p>
+            For any queries regarding registration or program details, contact the
+            Admissions Office at admissions@joshuniversity.ac.ke or call +254 700 123 456.
+        </p>
+
+        <p>
+            Yours faithfully,<br><br>
+            <strong>Registrar – Admissions</strong><br>
+            Josh University
+        </p>
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+    function generateLetter() {
+        // Student info
+        let name = document.getElementById("name").value;
+        let adm = document.getElementById("adm").value;
+
+        // Parent info
+        let parentName = document.getElementById("parentName").value;
+        let parentPhone = document.getElementById("parentPhone").value;
+        let parentEmail = document.getElementById("parentEmail").value;
+
+        // Medical file
+        let medical = document.getElementById("medicalFile").files.length;
+
+        // Fill in the letter dynamically
+        document.getElementById("sName").innerText =
+            name || "____________________";
+
+        document.getElementById("sAdm").innerText =
+            adm || "____________________";
+
+        document.getElementById("sMedical").innerText =
+            medical > 0 ? "Medical Report Uploaded" : "Not Uploaded";
+
+        document.getElementById("sParentName").innerText =
+            parentName || "____________________";
+
+        document.getElementById("sParentPhone").innerText =
+            parentPhone || "____________________";
+
+        document.getElementById("sParentEmail").innerText =
+            parentEmail || "____________________";
+    }
+
+    function downloadLetter() {
+        window.print();
+    }
+</script>
+
+</body>
+</html>
+
